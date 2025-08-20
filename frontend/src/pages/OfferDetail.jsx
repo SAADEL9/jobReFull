@@ -23,16 +23,14 @@ export default function OfferDetail() {
   const [loading, setLoading] = useState(true);
   const [currentUsername, setCurrentUsername] = useState("");
   const [currentId, setCurrentid] = useState("");
-  const userId = localStorage.getItem("userId");
+  // const userId = localStorage.getItem("userId");
   useEffect(() => {
     if (!id) return;
     api
       .get(`/api/offers/${id}`)
       .then((res) => setOffer(res.data))
-      .catch((err) => {
-        const message = err.response?.status === 404
-          ? "Offer not found"
-          : "Failed to load offer";
+      .catch(() => {
+        const message = "Failed to load offer";
         setError(message);
       })
       .finally(() => setLoading(false));
@@ -51,9 +49,9 @@ export default function OfferDetail() {
     try {
       await api.delete(`/api/recruiter/offers/${id}`);
       navigate('/'); // Redirect to home or offers list
-    } catch (err) {
-      setError('Failed to delete offer');
-    }
+      } catch {
+    setError('Failed to delete offer');
+  }
   };
 const handleApply = async () => {
   const token = localStorage.getItem("token");

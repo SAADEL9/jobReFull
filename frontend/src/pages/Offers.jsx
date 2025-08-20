@@ -15,7 +15,7 @@ import {
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BusinessIcon from '@mui/icons-material/Business';
 import WorkIcon from '@mui/icons-material/Work';
-import SearchBar from '../components/Search'; // Import the SearchBar component
+import SearchBar from '../components/Search';
 
 export default function Offers() {
   const [offers, setOffers] = useState([]);
