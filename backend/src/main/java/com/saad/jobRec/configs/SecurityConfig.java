@@ -49,8 +49,8 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/api/offers/detail").permitAll()
             // Applications: restrict per route
             .requestMatchers(HttpMethod.POST, "/api/applications/apply").hasAuthority("ROLE_CANDIDAT")
-            .requestMatchers(HttpMethod.GET, "/api/applications/by-recruiter/**").hasAuthority("ROLE_RECRUITER")
-            .requestMatchers(HttpMethod.GET, "/api/applications/by-candidat/**").hasAuthority("ROLE_CANDIDAT")
+            .requestMatchers(HttpMethod.GET, "/api/applications/recruiter/**").hasAuthority("ROLE_RECRUITER")
+            .requestMatchers(HttpMethod.GET, "/api/applications/candidat/**").hasAuthority("ROLE_CANDIDAT")
             .requestMatchers(HttpMethod.PUT, "/api/applications/**").hasAuthority("ROLE_RECRUITER")
             .requestMatchers("/api/user/me").authenticated()
             .requestMatchers("/api/candidat/**").hasAuthority("ROLE_CANDIDAT")

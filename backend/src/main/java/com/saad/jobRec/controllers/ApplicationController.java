@@ -1,6 +1,7 @@
 package com.saad.jobRec.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.saad.jobRec.entities.Application;
+import com.saad.jobRec.dto.ApplicationDTO;
 import com.saad.jobRec.services.ApplicationService;
 
 @RestController
@@ -33,14 +35,22 @@ public class ApplicationController {
     }
     @GetMapping("/candidat/{candidatId}")
     @PreAuthorize("hasRole('CANDIDAT')")
-    public ResponseEntity<List<Application>> getByCandidat(@PathVariable Long candidatId) {
-        return ResponseEntity.ok(applicationService.getApplicationsForCandidat(candidatId));
+    public ResponseEntity<List<ApplicationDTO>> getByCandidat(@PathVariable Long candidatId) {
+        List<ApplicationDTO> result = applicationService.getApplicationsForCandidat(candidatId)
+                .stream()
+                .map(ApplicationDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
     @GetMapping("/recruiter/{recruiterId}")
     @PreAuthorize("hasRole('RECRUITER')")
-    public ResponseEntity<List<Application>> getByRecruiter(@PathVariable Long recruiterId , Authentication authentication) {
+    public ResponseEntity<List<ApplicationDTO>> getByRecruiter(@PathVariable Long recruiterId , Authentication authentication) {
         String username = authentication.getName();
-        return ResponseEntity.ok(applicationService.getApplicationsForRecruiter(recruiterId));
+        List<ApplicationDTO> result = applicationService.getApplicationsForRecruiter(recruiterId)
+                .stream()
+                .map(ApplicationDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 
     @PutMapping("/{applicationId}/status")
