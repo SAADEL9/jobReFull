@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import RegisterForm from "./pages/RegisterForm";
-import Navbar from "./components/navbar";
+import Navbar from "./components/navbar.jsx";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
 import Profile from "./pages/profile";
 import CreateOffer from "./pages/CreateOffer";
@@ -16,7 +16,6 @@ import RecruiterApplications from "./pages/RecruiterApplications";
 function App() {
   const [authenticated, setAuthenticated] = useState(!!localStorage.getItem("token"));
   const [userRole, setUserRole] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -41,7 +40,7 @@ function App() {
 
   const handleLoginSuccess = () => {
     setAuthenticated(true);
-    navigate("/");
+    window.location.href = "/";
   };
 
   const theme = createTheme({

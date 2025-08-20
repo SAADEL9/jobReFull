@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "../css/profile.css";
 
@@ -7,8 +7,8 @@ const Profile = () => {
   const [role, setRole] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const token = localStorage.getItem("token");
-  const headers = { Authorization: `Bearer ${token}` };
+    const token = localStorage.getItem("token");
+  const headers = useMemo(() => ({ Authorization: `Bearer ${token}` }), [token]);
 
   useEffect(() => {
     let userMeData = {};
@@ -45,7 +45,7 @@ const Profile = () => {
         console.error("Error loading profile:", err);
         setLoading(false);
       });
-  }, []);
+    }, [headers]);
 
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });

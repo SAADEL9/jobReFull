@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { 
   Container,
@@ -34,7 +34,7 @@ export default function CreateOffer() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const headers = { Authorization: `Bearer ${token}` };
+  const headers = useMemo(() => ({ Authorization: `Bearer ${token}` }), [token]);
 
   useEffect(() => {
     if (!token) {
@@ -47,7 +47,7 @@ export default function CreateOffer() {
         setRecruiterId(res.data.id || res.data.recruiterId || "");
       })
       .catch(() => setError("Failed to fetch user data"));
-  }, [token, navigate]);
+  }, [token, navigate, headers]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({

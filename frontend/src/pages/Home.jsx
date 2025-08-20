@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
-import api from "../axiosConfig";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import Offers from "./Offers";
 import { Container, Typography, Box, Paper } from '@mui/material';
 
 export default function Home() {
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate();
+  const [message] = useState("Find your dream job today!");
 
 
 
